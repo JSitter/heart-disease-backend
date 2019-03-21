@@ -1,0 +1,23 @@
+{
+  "name": "heart-disease-backend",
+  "version": "1.0.0",
+  "description": "Back end heart disease predictor",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSitter/heart-disease-backend.git"
+  },
+  "author": "Justin Sitter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JSitter/heart-disease-backend/issues"
+  },
+  "homepage": "https://github.com/JSitter/heart-disease-backend#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19"
+  }
+}
