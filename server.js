@@ -1,8 +1,18 @@
-let exress = require('express');
-let app = express();
+const express = require('express');
+const app = express();
+const fs = require('fs');
 
-app.post((req, res)=>{
-  res.send('Route Test');
+app.get('/', (req, res)=>{
+  fs.readFile('./datasets/saved.csv', 'utf8', function(err, contents){
+    if(err){
+      console.log(err)
+      res.send(err)
+    }else{
+      res.send(contents)
+    }
+
+  })
+  
 })
 
 app.set('port', process.env.PORT || 8070);
