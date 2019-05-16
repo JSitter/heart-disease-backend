@@ -1,9 +1,10 @@
 from flask_restplus import Api, Resource, fields
 from flask import Flask, request, jsonify
 import os
+import random
 
 app = Flask(__name__)
-api = Api(app, version='1.0', title='Heart Disease Predictor', description='This is a flask app the predicts heart disease based on the UCI dataset.')
+api = Api(app, version='1.0', title='Heart Disease Predictor', description='This is a flask app that predicts heart disease based on the UCI dataset.')
 ns = api.namespace('api', description='Api endpoints for predictions')
 
 single_parser = api.parser()
@@ -21,9 +22,10 @@ class LogisticPrediction(Resource):
   def post(self):
     '''Post patient data return predicted true or false.'''
     args = single_parser.parse_args()
+
     print(args)
-    return True
+    return random.randint(0,1)
 
 if __name__ == '__main__':
-  PORT = int(os.environ.get('PORT', 8000))
+  PORT = int(os.environ.get('PORT', 8001))
   app.run(host='0.0.0.0', port=PORT)
