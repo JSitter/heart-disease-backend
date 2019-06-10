@@ -56,8 +56,25 @@ class LogisticPrediction(Resource):
         float(args.slope),
       ]
     except:
+      arg = ''
+      if not args.age:
+        arg += ' age'
+      if not args.sex:
+        arg += ' sex'
+      if not args.cp:
+        arg += ' cp'
+      if not args.trestbps:
+        arg += ' trestbps'
+      if not args.thalach:
+        arg += ' thalach'
+      if not args.exang:
+        arg += ' exange'
+      if not args.oldpeak:
+        arg += ' oldpeak'
+      if not args.slope:
+        arg += ' slope'
 
-      abort(400, 'Not enough parameters supplied: age, sex, cp, trestbps, thalach, exang, oldpeak, and slope are required.')
+      abort(400, 'Not enough parameters supplied. Missing: '+arg)
 
 
     # logging.warning(args)
