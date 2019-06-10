@@ -1,5 +1,5 @@
 from flask_restplus import Api, Resource, fields, reqparse
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 import os
 import random
@@ -20,6 +20,14 @@ ns = api.namespace('api', description='Api endpoints for predictions')
 single_parser = api.parser()
 
 parser = reqparse.RequestParser()
+parser.add_argument('age')
+parser.add_argument('sex')
+parser.add_argument('cp')
+parser.add_argument('trestbps')
+parser.add_argument('thalach')
+parser.add_argument('exang')
+parser.add_argument('oldpeak')
+parser.add_argument('slope')
 
 @ns.route('/')
 class Index(Resource):
@@ -33,17 +41,11 @@ class LogisticPrediction(Resource):
   @api.doc(parser=single_parser, description='Post Patient data to recieve prediction.')
   def post(self):
     '''Post patient data return predicted true or false.'''
-    parser.add_argument('age')
-    parser.add_argument('sex')
-    parser.add_argument('cp')
-    parser.add_argument('trestbps')
-    parser.add_argument('thalach')
-    parser.add_argument('exang')
-    parser.add_argument('oldpeak')
-    parser.add_argument('slope')
+
     args = parser.parse_args()
 
-    values = [
+    try:
+      values = [
         float(args.age),
         float(args.sex),
         float(args.cp),
@@ -52,7 +54,11 @@ class LogisticPrediction(Resource):
         float(args.exang),
         float(args.oldpeak),
         float(args.slope),
-    ]
+      ]
+    except:
+
+      abort(400, 'Not enough parameters supplied: age, sex, cp, trestbps, thalach, exang, oldpeak, and slope are required.')
+
 
     # logging.warning(args)
 
