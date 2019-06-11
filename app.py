@@ -76,10 +76,14 @@ class LogisticPrediction(Resource):
 
       abort(400, 'Not enough parameters supplied. Missing: '+arg)
 
-
     # logging.warning(args)
 
     prediction = log_reg_model.predict([values])[0]
+    try:
+      logging.warning(log_reg_model.predict([values]).percentage)
+    except:
+      logging.warning("Error finding percentage")
+    
     # return jsonify({'target':random.randint(0,1)})
 
     return jsonify({'target':int(prediction)})
